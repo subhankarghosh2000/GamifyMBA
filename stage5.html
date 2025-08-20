@@ -1,0 +1,135 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="UTF-8" />
+<meta name="viewport" content="width=device-width, initial-scale=1" />
+<title>Stage 5 - Final Pitch</title>
+<link rel="stylesheet" href="styles.css" />
+</head>
+<body>
+<div class="container">
+<header>
+<h1>🏆 Stage 5: Final Boardroom Pitch</h1>
+<div class="progress-bar"><div class="progress" style="width: 100%"></div></div>
+</header>
+<section>
+<h2>📋 Case Summary</h2>
+<ul>
+<li>10K actual vs 100K expected sales</li>
+<li>Repeat purchase rate 5%</li>
+<li>30% bottles leaking</li>
+<li>Competitor cheaper by ₹7</li>
+</ul>
+<h3>Select 4-5 Key Actions</h3>
+<form id="actionForm">
+<label><input type="checkbox" name="action" value="reduce-price"> Reduce price by ₹5</label><br>
+<label><input type="checkbox" name="action" value="fix-packaging"> Fix packaging leakage</label><br>
+<label><input type="checkbox" name="action" value="expand-distribution"> Expand to 1500 kirana stores</label><br>
+<label><input type="checkbox" name="action" value="increase-marketing"> Increase rural marketing by 3x</label><br>
+<label><input type="checkbox" name="action" value="launch-sachets"> Launch affordable sachets</label><br>
+<label><input type="checkbox" name="action" value="partner-anganwadi"> Partner with Anganwadi centers</label><br>
+<label><input type="checkbox" name="action" value="improve-quality"> Improve product formulation</label><br>
+<button type="button" id="submitActions">Submit Actions</button>
+</form>
+<h3>Your Turnaround Pitch (max 200 words)</h3>
+<textarea id="pitchText" maxlength="1200" placeholder="Write your compelling turnaround strategy..."></textarea>
+<p>Words: <span id="wordCount">0</span>/200</p>
+<button type="button" id="submitPitchBtn" disabled>Submit Final Pitch</button>
+<div id="pitchFeedback" style="margin-top: 10px; font-weight: bold;"></div>
+<div id="leaderboardSection" style="display:none; margin-top: 20px;">
+<h3>🏆 Leaderboard</h3>
+<ol id="leaderboardList"></ol>
+</div>
+</section>
+<script>
+let stageScore = 0;
+const actionForm = document.getElementById('actionForm');
+const submitActions = document.getElementById('submitActions');
+const pitchText = document.getElementById('pitchText');
+const wordCount = document.getElementById('wordCount');
+const submitPitchBtn = document.getElementById('submitPitchBtn');
+const pitchFeedback = document.getElementById('pitchFeedback');
+const leaderboardSection = document.getElementById('leaderboardSection');
+const leaderboardList = document.getElementById('leaderboardList');
+
+// Word count
+pitchText.addEventListener('input', () => {
+  let words = pitchText.value.match(/\S+/g);
+  words = words ? words.length : 0;
+  wordCount.textContent = words;
+  submitPitchBtn.disabled = !(words > 20 && words <= 200);
+});
+
+submitActions.addEventListener('click', () => {
+  const selected = Array.from(actionForm.querySelectorAll('input[name="action"]:checked'));
+  if(selected.length < 4 || selected.length > 5) {
+    alert('Please select 4 to 5 key actions.');
+    return;
+  }
+  stageScore += selected.length * 20;
+  alert(`Actions submitted (${selected.length} selected), +${stageScore} points`);
+  submitActions.disabled = true;
+});
+
+submitPitchBtn.addEventListener('click', () => {
+  const pitch = pitchText.value.toLowerCase();
+  let feedback = '';
+  
+  if(pitch.includes('profit') || pitch.includes('revenue')) {
+    feedback += '✅ Good focus on financial impact!\n';
+    stageScore += 30;
+  } else {
+    feedback += '❓ Consider adding profit/revenue impact.\n';
+  }
+
+  if(pitch.includes('creative') || pitch.includes('innovation')) {
+    feedback += '✅ Creative ideas included!\n';
+    stageScore += 30;
+  } else {
+    feedback += '❓ Try to include creative/innovative ideas.\n';
+  }
+
+  pitchFeedback.textContent = feedback;
+
+  // Update total score
+  let totalScore = parseInt(localStorage.getItem('totalScore')) || 0;
+  totalScore += stageScore;
+  localStorage.setItem('totalScore', totalScore);
+
+  saveLeaderboard(totalScore);
+  showLeaderboard();
+
+  alert(`Final pitch submitted! Total Score: ${totalScore}`);
+});
+
+function saveLeaderboard(score) {
+  let leaderboard = JSON.parse(localStorage.getItem('leaderboard')) || [];
+  const playerName = prompt('Enter your name for the leaderboard:', 'Player');
+
+  if(!playerName) return;
+
+  leaderboard.push({name: playerName, score: score});
+
+  leaderboard.sort((a,b) => b.score - a.score);
+  if(leaderboard.length > 10) leaderboard.pop();
+
+  localStorage.setItem('leaderboard', JSON.stringify(leaderboard));
+}
+
+function showLeaderboard() {
+  leaderboardSection.style.display = 'block';
+  let leaderboard = JSON.parse(localStorage.getItem('leaderboard')) || [];
+  leaderboardList.innerHTML = '';
+
+  leaderboard.forEach(entry => {
+    const li = document.createElement('li');
+    li.textContent = `${entry.name} - ${entry.score} points`;
+    leaderboardList.appendChild(li);
+  });
+}
+
+// On page load
+showLeaderboard();
+</script>
+</body>
+</html>

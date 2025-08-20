@@ -1,0 +1,328 @@
+* {
+  margin: 0;
+  padding: 0;
+  box-sizing: border-box;
+}
+
+body {
+  font-family: 'Arial', sans-serif;
+  background: linear-gradient(135deg, #667eea 0%, #764ba2 100%);
+  min-height: 100vh;
+  color: #333;
+  line-height: 1.5;
+  padding-bottom: 40px;
+}
+
+.container {
+  max-width: 960px;
+  margin: 20px auto;
+  padding: 20px;
+  background: white;
+  border-radius: 10px;
+  box-shadow: 0 4px 15px rgba(0,0,0,0.15);
+}
+
+header {
+  text-align: center;
+  margin-bottom: 20px;
+}
+
+.progress-bar {
+  width: 100%;
+  height: 12px;
+  background: #e0e0e0;
+  border-radius: 6px;
+  margin-top: 8px;
+}
+
+.progress {
+  height: 100%;
+  background: linear-gradient(90deg, #4CAF50, #45a049);
+  border-radius: 6px;
+  transition: width 0.3s ease;
+}
+
+h1, h2, h3, h4 {
+  font-weight: 700;
+  margin-bottom: 12px;
+}
+
+/* Card Styles - Consistent across all stages */
+.evidence-card, .memo-card, .summary-card, .insight-card, .email, .complaints-box, .matching-section {
+  border: 1px solid #ddd;
+  padding: 15px;
+  border-radius: 8px;
+  background: #fbfbfb;
+  margin: 15px 0;
+}
+
+/* Table Styles - Fixed alignment and responsiveness */
+.sales-table, .cost-table, .comparison-table {
+  width: 100%;
+  border-collapse: collapse;
+  margin-top: 10px;
+}
+
+.sales-table th, .cost-table th, .comparison-table th,
+.sales-table td, .cost-table td, .comparison-table td {
+  border: 1px solid #ccc;
+  padding: 10px;
+  text-align: center;
+  font-size: 14px;
+}
+
+.sales-table th, .cost-table th, .comparison-table th {
+  background: #f9f9f9;
+}
+
+/* Button Styles - Consistent across all stages */
+.choice-btn, .start-btn, .next-btn, .submit-btn, .badge-btn, .trade-btn, .block-btn, .qr-btn, .hint-btn {
+  background: linear-gradient(45deg, #FF6B6B, #4ECDC4);
+  color: white;
+  border: none;
+  padding: 12px 26px;
+  margin: 10px 5px;
+  border-radius: 25px;
+  cursor: pointer;
+  font-size: 16px;
+  font-weight: bold;
+  transition: transform 0.2s;
+  display: inline-block;
+}
+
+.choice-btn:hover, .start-btn:hover, .next-btn:hover, .submit-btn:hover, .badge-btn:hover, .trade-btn:hover, .block-btn:hover, .qr-btn:hover, .hint-btn:hover {
+  transform: translateY(-2px);
+}
+
+.choice-buttons {
+  display: flex;
+  justify-content: center;
+  flex-wrap: wrap;
+  gap: 15px;
+  margin: 20px 0;
+}
+
+.badge-btn {
+  margin-top: 10px;
+}
+
+.badge-container {
+  display: flex;
+  flex-wrap: wrap;
+  gap: 10px;
+  margin-top: 10px;
+  justify-content: center;
+}
+
+.badge {
+  background: gold;
+  color: #333;
+  padding: 8px 18px;
+  border-radius: 20px;
+  font-size: 14px;
+  font-weight: bold;
+  box-shadow: 0 0 8px gold;
+}
+
+.video-container {
+  text-align: center;
+  margin-bottom: 20px;
+}
+
+/* Input Styles - Fixed padding and alignment */
+textarea, input[type="number"], input[type="text"] {
+  width: 100%;
+  padding: 10px 15px;
+  font-size: 16px;
+  margin: 10px 0;
+  border-radius: 8px;
+  border: 1px solid #ccc;
+  outline: none;
+  box-sizing: border-box;
+}
+
+textarea:focus, input[type="number"]:focus, input[type="text"]:focus {
+  border-color: #4ecdc4;
+  box-shadow: 0 0 5px #4ecdc4c9;
+}
+
+/* Form Labels - Better spacing and alignment */
+.reason-section label, .matching-section label, .competitor-edge label, .action-checkboxes label {
+  display: block;
+  margin: 8px 0;
+  cursor: pointer;
+  font-size: 15px;
+}
+
+.reason-section input[type="checkbox"], .matching-section input[type="checkbox"], .competitor-edge input[type="radio"], .action-checkboxes input[type="checkbox"] {
+  margin-right: 8px;
+  cursor: pointer;
+}
+
+/* Navigation Buttons - Consistent positioning */
+.next-btn, .submit-btn {
+  display: block;
+  width: 100%;
+  max-width: 320px;
+  margin: 30px auto;
+}
+
+/* Mobile Responsive - Fixed alignment issues */
+@media screen and (max-width: 600px) {
+  .choice-buttons {
+    flex-direction: column;
+    align-items: center;
+    gap: 10px;
+  }
+
+  .container {
+    margin: 10px;
+    padding: 15px;
+  }
+
+  table {
+    font-size: 13px;
+  }
+
+  textarea, input[type="number"], input[type="text"] {
+    font-size: 14px;
+  }
+}
+
+/* Alert Box - For crisis events */
+.alert-box {
+  background-color: #ffebee;
+  color: #b71c1c;
+  padding: 12px 15px;
+  border-radius: 8px;
+  font-weight: bold;
+  margin-top: 15px;
+}
+
+/* Trading Status - For Stage 4 */
+#tradeStatus div {
+  padding: 10px;
+  border-radius: 5px;
+  margin-top: 8px;
+}
+
+/* Special Submit Button - Different color */
+.submit-btn {
+  background: linear-gradient(45deg, #2196f3, #21cbf3);
+  margin-top: 15px;
+}
+
+/* Additional Stage-specific fixes */
+.calculation-box {
+  background: #f0f8ff;
+  padding: 15px;
+  border-radius: 10px;
+  margin: 15px 0;
+}
+
+.calc-inputs label {
+  display: block;
+  margin: 8px 0;
+  font-weight: bold;
+}
+
+.calc-inputs input {
+  margin-left: 10px;
+  width: 150px;
+  display: inline-block;
+}
+
+.hidden-clue {
+  background: #fff3cd;
+  border: 2px solid #ffc107;
+  padding: 15px;
+  border-radius: 10px;
+  margin: 15px 0;
+  text-align: center;
+}
+
+.unlocked-content {
+  background: #e8f5e8;
+  border: 2px solid #4CAF50;
+  padding: 15px;
+  border-radius: 10px;
+  margin: 15px 0;
+}
+
+.mini-case ul {
+  margin: 10px 0;
+  padding-left: 20px;
+}
+
+.mini-case li {
+  margin: 5px 0;
+}
+
+#calcResult {
+  margin-top: 15px;
+  font-weight: bold;
+  font-size: 16px;
+  color: #2a7a2a;
+}
+
+.word-count {
+  text-align: right;
+  font-size: 12px;
+  color: #666;
+  margin-top: 5px;
+}
+
+/* Insight Cards Grid - For Stage 4 */
+.insight-cards {
+  display: grid;
+  grid-template-columns: repeat(auto-fit, minmax(250px, 1fr));
+  gap: 15px;
+  margin: 20px 0;
+}
+
+/* Trading System Box - For Stage 4 */
+.trading-system {
+  background: #fff8e1;
+  padding: 20px;
+  border-radius: 10px;
+  margin: 20px 0;
+  text-align: center;
+}
+
+/* Leaderboard Styles - For Stage 5 */
+.leaderboardSection {
+  background: #f5f5f5;
+  padding: 20px;
+  border-radius: 10px;
+  margin-top: 20px;
+}
+
+.leaderboardList {
+  list-style-type: decimal;
+  padding-left: 20px;
+}
+
+.leaderboardList li {
+  margin: 8px 0;
+  font-weight: bold;
+}
+
+/* Disabled button state */
+button:disabled {
+  background: #cccccc !important;
+  cursor: not-allowed;
+  transform: none !important;
+}
+
+/* Success states */
+.success {
+  background: #4CAF50 !important;
+  color: white;
+}
+
+/* Status messages */
+#status-display p {
+  padding: 10px;
+  border-radius: 5px;
+  margin: 5px 0;
+}

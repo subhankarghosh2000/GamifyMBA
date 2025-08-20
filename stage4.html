@@ -1,0 +1,251 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1" />
+    <title>Stage 4 - Competitor Analysis</title>
+    <link rel="stylesheet" href="styles.css" />
+</head>
+<body>
+    <div class="container">
+        <header>
+            <h1>📈 Stage 4: Competitor Analysis</h1>
+            <div class="progress-bar">
+                <div class="progress" style="width: 80%"></div>
+            </div>
+        </header>
+
+        <section>
+            <h2>⚔️ Brand X vs Competitor Comparison</h2>
+            <table class="comparison-table" style="width:100%; margin: 15px 0; border-collapse: collapse;">
+                <tr style="background: #f5f5f5;">
+                    <th style="border: 1px solid #ddd; padding: 12px;">Factor</th>
+                    <th style="border: 1px solid #ddd; padding: 12px;">Brand X</th>
+                    <th style="border: 1px solid #ddd; padding: 12px;">Competitor</th>
+                    <th style="border: 1px solid #ddd; padding: 12px;">Advantage</th>
+                </tr>
+                <tr>
+                    <td style="border: 1px solid #ddd; padding: 10px;">Price</td>
+                    <td style="border: 1px solid #ddd; padding: 10px;">₹25</td>
+                    <td style="border: 1px solid #ddd; padding: 10px;">₹18</td>
+                    <td style="border: 1px solid #ddd; padding: 10px; color: red;">Competitor</td>
+                </tr>
+                <tr>
+                    <td style="border: 1px solid #ddd; padding: 10px;">Distribution</td>
+                    <td style="border: 1px solid #ddd; padding: 10px;">500 stores</td>
+                    <td style="border: 1px solid #ddd; padding: 10px;">2000 stores</td>
+                    <td style="border: 1px solid #ddd; padding: 10px; color: red;">Competitor</td>
+                </tr>
+                <tr>
+                    <td style="border: 1px solid #ddd; padding: 10px;">Brand Awareness</td>
+                    <td style="border: 1px solid #ddd; padding: 10px;">15%</td>
+                    <td style="border: 1px solid #ddd; padding: 10px;">45%</td>
+                    <td style="border: 1px solid #ddd; padding: 10px; color: red;">Competitor</td>
+                </tr>
+                <tr>
+                    <td style="border: 1px solid #ddd; padding: 10px;">Product Quality</td>
+                    <td style="border: 1px solid #ddd; padding: 10px;">Good</td>
+                    <td style="border: 1px solid #ddd; padding: 10px;">Average</td>
+                    <td style="border: 1px solid #ddd; padding: 10px; color: green;">Brand X</td>
+                </tr>
+                <tr>
+                    <td style="border: 1px solid #ddd; padding: 10px;">Marketing Spend</td>
+                    <td style="border: 1px solid #ddd; padding: 10px;">₹50L</td>
+                    <td style="border: 1px solid #ddd; padding: 10px;">₹2Cr</td>
+                    <td style="border: 1px solid #ddd; padding: 10px; color: red;">Competitor</td>
+                </tr>
+            </table>
+
+            <div class="insight-cards" style="display: grid; grid-template-columns: repeat(auto-fit, minmax(250px, 1fr)); gap: 15px; margin: 20px 0;">
+                <div class="insight-card" style="background: #e3f2fd; padding: 15px; border-radius: 8px;">
+                    <h4>💰 Price Gap Analysis</h4>
+                    <p>₹7 higher than competitor (39% premium). Rural market is highly price-sensitive.</p>
+                </div>
+                <div class="insight-card" style="background: #f3e5f5; padding: 15px; border-radius: 8px;">
+                    <h4>📍 Distribution Gap</h4>
+                    <p>75% fewer stores than competitor. Limited rural accessibility is a major barrier.</p>
+                </div>
+                <div class="insight-card" style="background: #e8f5e8; padding: 15px; border-radius: 8px;">
+                    <h4>📢 Marketing Gap</h4>
+                    <p>4x less marketing spend. Low brand visibility in target markets.</p>
+                </div>
+            </div>
+
+            <div class="competitor-edge" style="margin: 25px 0;">
+                <h3>🎯 Competitor's Key Advantages (Select Primary)</h3>
+                <form id="edgeForm" style="margin: 15px 0;">
+                    <label style="display: block; margin: 8px 0; cursor: pointer;">
+                        <input type="radio" name="edge" value="pricing"> 
+                        <strong>Lower Pricing Strategy</strong> - 39% cheaper, accessible to rural consumers
+                    </label>
+                    <label style="display: block; margin: 8px 0; cursor: pointer;">
+                        <input type="radio" name="edge" value="distribution"> 
+                        <strong>Superior Distribution Network</strong> - 4x more stores, better rural reach
+                    </label>
+                    <label style="display: block; margin: 8px 0; cursor: pointer;">
+                        <input type="radio" name="edge" value="marketing"> 
+                        <strong>Higher Marketing Investment</strong> - 4x more spend, better brand awareness
+                    </label>
+                    <label style="display: block; margin: 8px 0; cursor: pointer;">
+                        <input type="radio" name="edge" value="availability"> 
+                        <strong>Better Rural Availability</strong> - Present in local kirana stores
+                    </label>
+                    <button type="button" id="submitEdge" class="submit-btn">📊 Submit Analysis</button>
+                </form>
+                <div id="edgeResult" style="margin-top: 15px; font-weight: bold;"></div>
+            </div>
+
+            <div class="trading-system" style="background: #fff8e1; padding: 20px; border-radius: 10px; margin: 20px 0;">
+                <h3>🤝 Strategic Intelligence Trading (Optional)</h3>
+                <p>Simulate market intelligence gathering:</p>
+                <div class="trade-options" style="text-align: center; margin: 15px 0;">
+                    <button type="button" id="tradeBtn" class="trade-btn" style="margin: 5px;">
+                        🔄 Gather Market Intelligence
+                    </button>
+                    <button type="button" id="blockBtn" class="block-btn" style="margin: 5px;">
+                        🛡️ Counter Competitor Move
+                    </button>
+                    <div id="tradeStatus" style="margin-top: 10px; font-weight: bold;"></div>
+                </div>
+            </div>
+
+            <button type="button" id="nextBtn" class="next-btn" disabled>➡️ Final Boardroom Pitch</button>
+        </section>
+    </div>
+
+    <script>
+        let stageScore = 0;
+        let analysisSubmitted = false;
+
+        const submitEdge = document.getElementById('submitEdge');
+        const nextBtn = document.getElementById('nextBtn');
+        const edgeResult = document.getElementById('edgeResult');
+        const tradeBtn = document.getElementById('tradeBtn');
+        const blockBtn = document.getElementById('blockBtn');
+        const tradeStatus = document.getElementById('tradeStatus');
+
+        // Edge analysis submission
+        submitEdge.addEventListener('click', () => {
+            const selected = document.querySelector('input[name="edge"]:checked');
+            
+            if (!selected) {
+                alert('Please select the competitor\'s primary advantage to proceed!');
+                return;
+            }
+
+            let addedScore = 0;
+            let feedback = '';
+            
+            // Scoring based on strategic insight
+            switch(selected.value) {
+                case 'pricing':
+                    addedScore = 40;
+                    feedback = 'Price advantage identified - Most impactful for rural markets';
+                    break;
+                case 'distribution':
+                    addedScore = 50; // Best answer
+                    feedback = 'Distribution network identified - Critical success factor';
+                    break;
+                case 'marketing':
+                    addedScore = 30;
+                    feedback = 'Marketing spend identified - Important for brand building';
+                    break;
+                case 'availability':
+                    addedScore = 45;
+                    feedback = 'Rural availability identified - Key competitive advantage';
+                    break;
+            }
+
+            stageScore += addedScore;
+            analysisSubmitted = true;
+            
+            edgeResult.innerHTML = `
+                <div style="background: #e8f5e8; padding: 15px; border-radius: 8px;">
+                    ✅ <strong>Analysis Complete!</strong><br>
+                    ${feedback}<br>
+                    <span style="color: green;">+${addedScore} points earned</span>
+                </div>
+            `;
+            
+            submitEdge.disabled = true;
+            submitEdge.textContent = '✅ Analysis Submitted';
+            submitEdge.style.background = '#4CAF50';
+            
+            nextBtn.disabled = false;
+        });
+
+        // Trading system simulation
+        tradeBtn.addEventListener('click', () => {
+            const intelligenceTypes = [
+                'Customer satisfaction scores',
+                'Supply chain efficiency data', 
+                'Regional sales performance',
+                'Marketing campaign effectiveness',
+                'Distribution partner feedback'
+            ];
+            
+            const randomIntel = intelligenceTypes[Math.floor(Math.random() * intelligenceTypes.length)];
+            
+            tradeStatus.innerHTML = `
+                <div style="background: #e3f2fd; padding: 10px; border-radius: 5px;">
+                    🔍 <strong>Intelligence Gathered:</strong> ${randomIntel}
+                    <br><span style="color: blue;">+15 strategic points</span>
+                </div>
+            `;
+            
+            stageScore += 15;
+            tradeBtn.disabled = true;
+            tradeBtn.textContent = '✅ Intel Gathered';
+        });
+
+        blockBtn.addEventListener('click', () => {
+            const counterMoves = [
+                'Price matching strategy activated',
+                'Emergency distribution expansion', 
+                'Rapid marketing campaign launch',
+                'Quality differentiation emphasis',
+                'Rural partnership acceleration'
+            ];
+            
+            const randomCounter = counterMoves[Math.floor(Math.random() * counterMoves.length)];
+            
+            tradeStatus.innerHTML = `
+                <div style="background: #ffebee; padding: 10px; border-radius: 5px;">
+                    🛡️ <strong>Counter-move:</strong> ${randomCounter}
+                    <br><span style="color: red;">+20 tactical points</span>
+                </div>
+            `;
+            
+            stageScore += 20;
+            blockBtn.disabled = true;
+            blockBtn.textContent = '✅ Counter Executed';
+        });
+
+        // Navigation to next stage
+        nextBtn.addEventListener('click', () => {
+            if (!analysisSubmitted) {
+                alert('Please complete the competitor advantage analysis first!');
+                return;
+            }
+            
+            saveScoreAndGo(stageScore, 'stage4');
+        });
+
+        function saveScoreAndGo(score, stage) {
+            let totalScore = parseInt(localStorage.getItem('totalScore')) || 0;
+            totalScore += score;
+            localStorage.setItem('totalScore', totalScore);
+            localStorage.setItem(stage + 'Score', score);
+            
+            alert(`Stage 4 Complete! Earned: ${score} points | Total Score: ${totalScore}`);
+            window.location.href = 'stage5.html';
+        }
+
+        // Load existing score display
+        window.addEventListener('load', () => {
+            const totalScore = localStorage.getItem('totalScore') || 0;
+            console.log(`Current total score: ${totalScore}`);
+        });
+    </script>
+</body>
+</html>

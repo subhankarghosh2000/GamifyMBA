@@ -1,0 +1,236 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1" />
+    <title>Stage 3 - Internal Audit</title>
+    <link rel="stylesheet" href="styles.css" />
+</head>
+<body>
+    <div class="container">
+        <header>
+            <h1>🔍 Stage 3: Internal Audit</h1>
+            <div class="progress-bar">
+                <div class="progress" style="width: 60%"></div>
+            </div>
+        </header>
+
+        <section>
+            <h2>💰 Cost Sheet Analysis</h2>
+            <table class="cost-table" style="width:100%; margin: 10px 0; border-collapse: collapse;">
+                <tr style="background: #f5f5f5;">
+                    <th style="border: 1px solid #ddd; padding: 10px;">Component</th>
+                    <th style="border: 1px solid #ddd; padding: 10px;">Budgeted</th>
+                    <th style="border: 1px solid #ddd; padding: 10px;">Actual</th>
+                    <th style="border: 1px solid #ddd; padding: 10px;">Variance</th>
+                </tr>
+                <tr>
+                    <td style="border: 1px solid #ddd; padding: 10px;">Production</td>
+                    <td style="border: 1px solid #ddd; padding: 10px;">₹12/unit</td>
+                    <td style="border: 1px solid #ddd; padding: 10px;">₹15/unit</td>
+                    <td style="border: 1px solid #ddd; padding: 10px; color: red;">+25%</td>
+                </tr>
+                <tr>
+                    <td style="border: 1px solid #ddd; padding: 10px;">Packaging</td>
+                    <td style="border: 1px solid #ddd; padding: 10px;">₹3/unit</td>
+                    <td style="border: 1px solid #ddd; padding: 10px;">₹5/unit</td>
+                    <td style="border: 1px solid #ddd; padding: 10px; color: red;">+67%</td>
+                </tr>
+                <tr>
+                    <td style="border: 1px solid #ddd; padding: 10px;">Distribution</td>
+                    <td style="border: 1px solid #ddd; padding: 10px;">₹4/unit</td>
+                    <td style="border: 1px solid #ddd; padding: 10px;">₹8/unit</td>
+                    <td style="border: 1px solid #ddd; padding: 10px; color: red;">+100%</td>
+                </tr>
+                <tr>
+                    <td style="border: 1px solid #ddd; padding: 10px;">Marketing</td>
+                    <td style="border: 1px solid #ddd; padding: 10px;">₹2/unit</td>
+                    <td style="border: 1px solid #ddd; padding: 10px;">₹1/unit</td>
+                    <td style="border: 1px solid #ddd; padding: 10px; color: green;">-50%</td>
+                </tr>
+            </table>
+
+            <div class="complaints-box" style="background: #fff3cd; padding: 15px; border-radius: 8px; margin: 15px 0;">
+                <h3>📝 Customer Complaints</h3>
+                <ul>
+                    <li>🚨 <strong>30% bottles leaking</strong> during transport</li>
+                    <li>📍 Product not available in local kirana stores</li>
+                    <li>💸 Price too high compared to local alternatives</li>
+                    <li>📺 No advertising seen in rural areas</li>
+                </ul>
+            </div>
+
+            <div class="inefficiency-matching" style="margin: 20px 0;">
+                <h3>🎯 Match Problems to Root Causes</h3>
+                <div class="matching-section">
+                    <label><input type="checkbox" value="leakage"> Packaging Quality Issues → 30% Leakage</label><br>
+                    <label><input type="checkbox" value="distribution"> Poor Distribution Network → Limited Store Reach</label><br>
+                    <label><input type="checkbox" value="marketing"> Low Marketing Spend → No Rural Awareness</label><br>
+                    <label><input type="checkbox" value="pricing"> High Production Cost → Expensive Final Price</label><br>
+                </div>
+                <button type="button" id="analyzeBtn">✅ Submit Analysis</button>
+                <div id="analysisResult" style="margin-top: 10px; font-weight: bold;"></div>
+            </div>
+
+            <button type="button" id="crisisBtn" class="next-btn">📰 Check Latest News</button>
+
+            <div id="crisisSection" style="display:none; margin-top: 20px; background: #ffebee; border: 2px solid #f44336; border-radius: 10px; padding: 15px;">
+                <h3>⚡ BREAKING NEWS!</h3>
+                <div class="alert-box">
+                    <p><strong>Competitor just dropped price by ₹2!</strong></p>
+                    <p>Their new price: ₹16 (vs our ₹25). Market share at risk!</p>
+                    <p>You have <span id="timer" style="color: red; font-weight: bold;">5:00</span> to submit a reaction plan!</p>
+                    <textarea id="reactionInput" placeholder="Type your quick reaction strategy here... (minimum 40 characters)" style="width:100%; height:100px; margin-top: 10px;"></textarea>
+                    <button type="button" id="submitReactionBtn" class="submit-btn">⏰ Submit Response</button>
+                </div>
+            </div>
+
+            <button type="button" id="nextBtn" class="next-btn" disabled>➡️ Competitor Analysis</button>
+        </section>
+    </div>
+
+    <script>
+        let stageScore = 0;
+        let crisisChecked = false;
+        let timer;
+        let timeLeft = 300; // 5 minutes
+
+        const crisisBtn = document.getElementById('crisisBtn');
+        const crisisSection = document.getElementById('crisisSection');
+        const submitReactionBtn = document.getElementById('submitReactionBtn');
+        const nextBtn = document.getElementById('nextBtn');
+        const analyzeBtn = document.getElementById('analyzeBtn');
+        const timerElement = document.getElementById('timer');
+
+        // Analysis submission
+        analyzeBtn.addEventListener('click', () => {
+            const selected = document.querySelectorAll('.matching-section input[type=checkbox]:checked');
+            
+            if (selected.length < 3) {
+                alert('Please select at least 3 problem-cause matches to proceed!');
+                return;
+            }
+
+            let correctMatches = 0;
+            selected.forEach(checkbox => {
+                if (['leakage', 'distribution', 'marketing', 'pricing'].includes(checkbox.value)) {
+                    correctMatches++;
+                }
+            });
+
+            const scoreEarned = correctMatches * 10;
+            stageScore += scoreEarned;
+            
+            document.getElementById('analysisResult').innerHTML = 
+                `✅ Analysis complete! ${correctMatches} correct matches identified (+${scoreEarned} points)`;
+            
+            analyzeBtn.disabled = true;
+            analyzeBtn.textContent = '✅ Analysis Submitted';
+            analyzeBtn.style.background = '#4CAF50';
+        });
+
+        // Crisis event trigger
+        crisisBtn.addEventListener('click', () => {
+            crisisSection.style.display = 'block';
+            crisisBtn.disabled = true;
+            crisisBtn.textContent = '📰 News Checked';
+            crisisBtn.style.background = '#666';
+            crisisChecked = true;
+            startTimer();
+        });
+
+        // Timer function
+        function startTimer() {
+            timer = setInterval(() => {
+                const minutes = Math.floor(timeLeft / 60);
+                const seconds = timeLeft % 60;
+                timerElement.textContent = `${minutes}:${seconds.toString().padStart(2, '0')}`;
+                
+                if (timeLeft <= 0) {
+                    clearInterval(timer);
+                    autoSubmitCrisis();
+                }
+                timeLeft--;
+            }, 1000);
+        }
+
+        // Crisis response submission
+        submitReactionBtn.addEventListener('click', () => {
+            const text = document.getElementById('reactionInput').value.trim();
+            
+            if (text.length < 40) {
+                alert('Please write a more detailed reaction strategy (minimum 40 characters)');
+                return;
+            }
+
+            clearInterval(timer);
+            
+            // Score based on response quality
+            let responseScore = 30; // Base score
+            
+            if (text.toLowerCase().includes('price') && text.toLowerCase().includes('reduce')) {
+                responseScore += 10; // Price strategy
+            }
+            if (text.toLowerCase().includes('marketing') || text.toLowerCase().includes('promotion')) {
+                responseScore += 10; // Marketing response
+            }
+            if (text.toLowerCase().includes('quality') || text.toLowerCase().includes('value')) {
+                responseScore += 10; // Quality focus
+            }
+
+            stageScore += responseScore;
+            
+            alert(`👍 Crisis response accepted! Strategic thinking demonstrated (+${responseScore} points)`);
+            
+            submitReactionBtn.disabled = true;
+            submitReactionBtn.textContent = '✅ Response Submitted';
+            submitReactionBtn.style.background = '#4CAF50';
+            
+            nextBtn.disabled = false;
+            
+            // Hide timer and show completion
+            timerElement.textContent = 'COMPLETED';
+            timerElement.style.color = 'green';
+        });
+
+        // Auto-submit if time runs out
+        function autoSubmitCrisis() {
+            const text = document.getElementById('reactionInput').value.trim();
+            if (text.length >= 40) {
+                stageScore += 20; // Reduced points for late submission
+                alert('⏰ Time up! Response auto-submitted (+20 points for completing in time)');
+            } else {
+                alert('⏰ Time up! No adequate response provided. Moving forward...');
+            }
+            nextBtn.disabled = false;
+        }
+
+        // Navigation to next stage
+        nextBtn.addEventListener('click', () => {
+            if (!crisisChecked) {
+                alert('Please check the latest news and handle the crisis situation first!');
+                return;
+            }
+            
+            // Save score and progress
+            saveScoreAndGo(stageScore, 'stage3');
+        });
+
+        function saveScoreAndGo(score, stage) {
+            let totalScore = parseInt(localStorage.getItem('totalScore')) || 0;
+            totalScore += score;
+            localStorage.setItem('totalScore', totalScore);
+            localStorage.setItem(stage + 'Score', score);
+            
+            alert(`Stage 3 Complete! Earned: ${score} points | Total Score: ${totalScore}`);
+            window.location.href = 'stage4.html';
+        }
+
+        // Load existing score
+        window.addEventListener('load', () => {
+            const totalScore = localStorage.getItem('totalScore') || 0;
+            console.log(`Current total score: ${totalScore}`);
+        });
+    </script>
+</body>
+</html>

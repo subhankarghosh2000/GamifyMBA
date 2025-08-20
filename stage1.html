@@ -1,0 +1,202 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1" />
+    <title>Stage 1 - The Incident</title>
+    <link rel="stylesheet" href="styles.css" />
+</head>
+<body>
+    <div class="container">
+        <header>
+            <h1>🕵️ Stage 1: The Incident</h1>
+            <div class="progress-bar">
+                <div class="progress" style="width: 20%"></div>
+            </div>
+        </header>
+
+        <section class="evidence-section">
+            <h2>📊 Evidence Found</h2>
+            
+            <div class="evidence-card">
+                <h3>Sales Heatmap</h3>
+                <table class="sales-table">
+                    <thead><tr><th>Region</th><th>Expected</th><th>Actual</th><th>Gap</th></tr></thead>
+                    <tbody>
+                        <tr><td>North UP</td><td>25,000</td><td>2,000</td><td>-92%</td></tr>
+                        <tr><td>Maharashtra</td><td>30,000</td><td>3,000</td><td>-90%</td></tr>
+                        <tr><td>Bihar</td><td>20,000</td><td>2,500</td><td>-87.5%</td></tr>
+                        <tr><td>Others</td><td>25,000</td><td>2,500</td><td>-90%</td></tr>
+                    </tbody>
+                </table>
+            </div>
+
+            <div class="evidence-card">
+                <h3>📧 CEO Email (Leaked)</h3>
+                <div class="email">
+                    <p><strong>From:</strong> CEO Brand X</p>
+                    <p><strong>Subject:</strong> URGENT - Rural Launch Crisis</p>
+                    <p><strong>Message:</strong> "Board meeting tomorrow. Need immediate answers. ₹10 Cr investment at risk. Sales team says distribution issues, marketing blames pricing. What's the real problem?"</p>
+                </div>
+            </div>
+
+            <!-- HIDDEN CLUE - This will show when button is clicked -->
+            <div class="hidden-clue" id="repeat-clue" style="display:none;">
+                <h3>🔍 Sharp Eye Discovery!</h3>
+                <p><strong>Repeat Purchase Rate: Only 5%!</strong></p>
+                <button type="button" onclick="awardBadge('Sharp Eye')" class="badge-btn">🏅 Claim Badge</button>
+            </div>
+
+            <!-- UNLOCKED CONTENT AREAS -->
+            <div class="unlocked-content" id="distribution-case" style="display:none;">
+                <h3>🔓 Warehouse Routes Mini-Case</h3>
+                <div class="mini-case">
+                    <p><strong>Investigation reveals:</strong></p>
+                    <ul>
+                        <li>Only 500 stores vs competitor's 2000 stores</li>
+                        <li>Rural areas have 75% fewer distribution points</li>
+                        <li>Transportation delays in 60% of deliveries</li>
+                        <li>No direct rural supply chain established</li>
+                    </ul>
+                </div>
+            </div>
+
+            <div class="unlocked-content" id="pricing-case" style="display:none;">
+                <h3>🔓 Supplier Negotiation Mini-Puzzle</h3>
+                <div class="mini-case">
+                    <p><strong>Pricing Analysis:</strong></p>
+                    <ul>
+                        <li>Brand X: ₹25 vs Competitor: ₹18 (39% premium)</li>
+                        <li>Rural income: ₹8,000/month average</li>
+                        <li>Health drinks = 2% of monthly budget</li>
+                        <li>Price sensitivity very high in rural markets</li>
+                    </ul>
+                </div>
+            </div>
+        </section>
+
+        <section class="decision-section">
+            <h2>🤔 What's the Main Problem?</h2>
+            <div class="choice-buttons">
+                <button type="button" onclick="chooseDistribution()" class="choice-btn">
+                    📦 Distribution Issues<br />
+                    <small>Poor rural reach & availability</small>
+                </button>
+                <button type="button" onclick="choosePricing()" class="choice-btn">
+                    💰 Pricing Problems<br />
+                    <small>Too expensive for rural market</small>
+                </button>
+            </div>
+            
+            <button type="button" onclick="findHiddenClue()" class="hint-btn">🔍 Look for Hidden Clues</button>
+            
+            <!-- STATUS DISPLAY -->
+            <div id="status-display" style="margin-top: 20px;">
+                <p id="path-selected" style="display:none; font-weight: bold; color: green;"></p>
+                <p id="clue-found" style="display:none; font-weight: bold; color: blue;"></p>
+            </div>
+        </section>
+        
+        <button type="button" onclick="nextStage()" class="next-btn" id="next-btn" disabled>
+            ➡️ Proceed to Market Analysis
+        </button>
+    </div>
+
+    <script>
+        // Global game state
+        let gameState = {
+            badges: [],
+            score: 0,
+            selectedPath: null,
+            clueFound: false
+        };
+
+        function awardBadge(badgeName) {
+            if (!gameState.badges.includes(badgeName)) {
+                gameState.badges.push(badgeName);
+                gameState.score += 25;
+                alert('🏅 Badge Earned: ' + badgeName + ' (+25 points)');
+                
+                // Visual feedback
+                const button = event.target;
+                button.style.background = 'gold';
+                button.textContent = '✅ Badge Claimed!';
+                button.disabled = true;
+            }
+        }
+
+        function chooseDistribution() {
+            gameState.selectedPath = 'distribution';
+            
+            // Show unlocked content
+            document.getElementById('distribution-case').style.display = 'block';
+            document.getElementById('path-selected').textContent = '✅ Distribution path selected - Mini-case unlocked!';
+            document.getElementById('path-selected').style.display = 'block';
+            
+            // Enable next button
+            document.getElementById('next-btn').disabled = false;
+            
+            // Visual feedback
+            const button = event.target;
+            button.style.background = 'linear-gradient(45deg, #4CAF50, #45a049)';
+            button.style.transform = 'scale(1.05)';
+        }
+
+        function choosePricing() {
+            gameState.selectedPath = 'pricing';
+            
+            // Show unlocked content
+            document.getElementById('pricing-case').style.display = 'block';
+            document.getElementById('path-selected').textContent = '✅ Pricing path selected - Mini-puzzle unlocked!';
+            document.getElementById('path-selected').style.display = 'block';
+            
+            // Enable next button
+            document.getElementById('next-btn').disabled = false;
+            
+            // Visual feedback
+            const button = event.target;
+            button.style.background = 'linear-gradient(45deg, #4CAF50, #45a049)';
+            button.style.transform = 'scale(1.05)';
+        }
+
+        function findHiddenClue() {
+            // Show hidden clue
+            document.getElementById('repeat-clue').style.display = 'block';
+            document.getElementById('clue-found').textContent = '🔍 Hidden clue discovered!';
+            document.getElementById('clue-found').style.display = 'block';
+            
+            gameState.clueFound = true;
+            
+            // Visual feedback
+            const button = event.target;
+            button.textContent = '✅ Clue Found!';
+            button.disabled = true;
+            button.style.background = '#8a2be2';
+        }
+
+        function nextStage() {
+            if (!gameState.selectedPath) {
+                alert('⚠️ Please select the main problem first!');
+                return;
+            }
+            
+            // Save state to localStorage
+            localStorage.setItem('gameState', JSON.stringify(gameState));
+            
+            // Show progress
+            alert(`🎯 Analysis complete! Path: ${gameState.selectedPath.toUpperCase()}\nScore: ${gameState.score} points\nProceeding to Market Analysis...`);
+            
+            // Redirect to stage 2
+            window.location.href = 'stage2.html';
+        }
+
+        // Load any saved state
+        window.addEventListener('load', function() {
+            const saved = localStorage.getItem('gameState');
+            if (saved) {
+                gameState = JSON.parse(saved);
+            }
+        });
+    </script>
+</body>
+</html>

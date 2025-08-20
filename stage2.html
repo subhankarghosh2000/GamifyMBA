@@ -1,0 +1,148 @@
+<!-- <!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>Stage 2 - Market Analysis</title>
+<link rel="stylesheet" href="styles.css">
+</head>
+<body>
+<div class="container">
+<header>
+<h1>📊 Stage 2: Market Deep Dive</h1>
+<div class="progress-bar">
+<div class="progress" style="width: 40%"></div>
+</div>
+</header>
+
+<div class="analysis-section">
+<div class="leaked-memo">
+<h2>📋 Leaked Internal Memo</h2>
+<div class="memo-card">
+<p><strong>CONFIDENTIAL:</strong> Customer retention analysis shows repeat purchase rate at <strong>5% only</strong>. Industry average is 35-40%.</p>
+<p>Urgent action needed!</p>
+</div>
+</div>
+
+<div class="calculation-box">
+<h3>🧮 Market Size Calculator</h3>
+<p>Help estimate the potential monthly sales:</p>
+<div class="calc-inputs">
+<label>Target Rural Population: <input type="number" id="population" value="1000000"></label>
+<label>Market Penetration %: <input type="number" id="penetration" value="2"></label>
+<label>Monthly Purchase Rate: <input type="number" id="purchase-rate" value="1.5"></label>
+<button onclick="calculateSales()">Calculate Potential</button>
+</div>
+<div id="calc-result"></div>
+</div>
+
+<div class="qr-section">
+<h3>🔓 Hidden Evidence</h3>
+<div class="qr-placeholder">
+<p>📱 QR Code Found!</p>
+<img src="qr_code.png" alt="QR Code" width="150" height="150"/>
+<button onclick="scanQR()" class="qr-btn">Scan QR Code</button>
+<div id="qr-content" style="display:none;">
+<h4>🎥 Secret Rural Survey Video</h4>
+<p>"Customers say: Too expensive, bottles leak, not available in local stores."</p>
+<button onclick="awardBadge('Easter Egg Hunter')" class="badge-btn">🏅 Claim Discovery Badge</button>
+</div>
+</div>
+</div>
+
+<div class="reasons-section">
+<h3>❓ Why Low Repeat Purchases?</h3>
+<div class="reason-checkboxes">
+<label><input type="checkbox" value="price"> Too expensive</label>
+<label><input type="checkbox" value="quality"> Poor product quality</label>
+<label><input type="checkbox" value="availability"> Low availability</label>
+<label><input type="checkbox" value="competition"> Strong competition</label>
+<label><input type="checkbox" value="awareness"> Low brand awareness</label>
+</div>
+</div>
+</div>
+
+<button onclick="nextStage()" class="next-btn">➡️ Internal Audit</button>
+</div>
+<script src="stage2.js"></script>
+</body>
+</html> -->
+
+
+
+
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="UTF-8" />
+<meta name="viewport" content="width=device-width, initial-scale=1" />
+<title>Stage 2 - Market Analysis</title>
+<link rel="stylesheet" href="styles.css" />
+</head>
+<body>
+<div class="container">
+<header>
+<h1>📊 Stage 2: Market Deep Dive</h1>
+<div class="progress-bar"><div class="progress" style="width: 40%"></div></div>
+</header>
+<section>
+<div class="memo-card">
+  <p><strong>CONFIDENTIAL:</strong> Repeat purchase rate only 5%!</p>
+</div>
+<div class="calculation-box">
+  <h3>🧮 Market Size Calculator</h3>
+  <label>Target Rural Population: <input type="number" id="population" value="1000000"></label><br>
+  <label>Market Penetration %: <input type="number" id="penetration" value="2"></label><br>
+  <label>Monthly Purchase Rate: <input type="number" id="purchaseRate" value="1.5" step="0.1"></label><br>
+  <button type="button" id="calculateBtn">Calculate Potential</button>
+  <p id="calcResult"></p>
+</div>
+<div class="reason-section">
+<h3>❓ Why Low Repeat Purchases? (Select 2 or more)</h3>
+<label><input type="checkbox" value="price"> Too expensive</label><br>
+<label><input type="checkbox" value="quality"> Poor quality</label><br>
+<label><input type="checkbox" value="availability"> Low availability</label><br>
+<label><input type="checkbox" value="competition"> Strong competition</label><br>
+<label><input type="checkbox" value="awareness"> Low brand awareness</label><br>
+</div>
+<button type="button" id="nextBtn" disabled>➡️ Internal Audit</button>
+</section>
+<script>
+let stageScore = 0;
+document.getElementById('calculateBtn').addEventListener('click', () => {
+  const pop = parseInt(document.getElementById('population').value) || 0;
+  const pen = parseFloat(document.getElementById('penetration').value) || 0;
+  const rate = parseFloat(document.getElementById('purchaseRate').value) || 0;
+  const potential = Math.floor(pop * pen / 100 * rate);
+  document.getElementById('calcResult').textContent = `Potential monthly sales: ${potential.toLocaleString()}`;
+  stageScore += 30;
+  enableButton();
+});
+
+function enableButton() {
+  const checked = document.querySelectorAll('.reason-section input[type=checkbox]:checked').length;
+  if (checked >= 2 && stageScore > 10) {
+    document.getElementById('nextBtn').disabled = false;
+  } else {
+    document.getElementById('nextBtn').disabled = true;
+  }
+}
+
+document.querySelectorAll('.reason-section input[type=checkbox]').forEach(el => {
+  el.addEventListener('change', enableButton);
+});
+
+document.getElementById('nextBtn').addEventListener('click', () => {
+  saveScoreAndGo(stageScore, 'stage2');
+});
+
+function saveScoreAndGo(score, stage) {
+  let totalScore = parseInt(localStorage.getItem('totalScore')) || 0;
+  totalScore += score;
+  localStorage.setItem('totalScore', totalScore);
+  localStorage.setItem(stage + 'Score', score);
+  window.location.href = 'stage3.html';
+}
+</script>
+</body>
+</html>
