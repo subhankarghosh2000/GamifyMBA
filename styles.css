@@ -1,328 +1,113 @@
-* {
-  margin: 0;
-  padding: 0;
-  box-sizing: border-box;
-}
-
+/* Shared styling for the Launch Detective interactive game */
+* { box-sizing: border-box; }
 body {
-  font-family: 'Arial', sans-serif;
-  background: linear-gradient(135deg, #667eea 0%, #764ba2 100%);
+  font-family: Inter, Arial, sans-serif;
+  background: linear-gradient(135deg, #102a43 0, #0b486b 100%);
   min-height: 100vh;
-  color: #333;
-  line-height: 1.5;
-  padding-bottom: 40px;
+  color: #111;
+  padding: 18px;
 }
-
 .container {
-  max-width: 960px;
-  margin: 20px auto;
+  max-width: 980px;
+  margin: 18px auto;
   padding: 20px;
-  background: white;
-  border-radius: 10px;
-  box-shadow: 0 4px 15px rgba(0,0,0,0.15);
+  background: #fff;
+  border-radius: 12px;
+  box-shadow: 0 12px 40px rgba(2,6,23,0.18);
 }
+header { text-align: center; margin-bottom: 16px; }
+h1 { font-size: 24px; margin-bottom: 6px; }
+.subtitle { color: #555; margin-top: 6px; }
 
-header {
-  text-align: center;
-  margin-bottom: 20px;
-}
-
-.progress-bar {
-  width: 100%;
-  height: 12px;
-  background: #e0e0e0;
-  border-radius: 6px;
-  margin-top: 8px;
-}
-
-.progress {
-  height: 100%;
-  background: linear-gradient(90deg, #4CAF50, #45a049);
-  border-radius: 6px;
-  transition: width 0.3s ease;
-}
-
-h1, h2, h3, h4 {
-  font-weight: 700;
-  margin-bottom: 12px;
-}
-
-/* Card Styles - Consistent across all stages */
-.evidence-card, .memo-card, .summary-card, .insight-card, .email, .complaints-box, .matching-section {
-  border: 1px solid #ddd;
-  padding: 15px;
+.intro-section {}
+.evidence-card, .memo-card, .task-card, .howto {
+  border: 1px solid #e6e9ee;
+  padding: 14px;
   border-radius: 8px;
-  background: #fbfbfb;
-  margin: 15px 0;
+  margin: 12px 0;
+  background: #fbfdff;
 }
+.controls-row { display: flex; gap: 12px; align-items: center; }
 
-/* Table Styles - Fixed alignment and responsiveness */
-.sales-table, .cost-table, .comparison-table {
-  width: 100%;
-  border-collapse: collapse;
-  margin-top: 10px;
-}
-
-.sales-table th, .cost-table th, .comparison-table th,
-.sales-table td, .cost-table td, .comparison-table td {
-  border: 1px solid #ccc;
-  padding: 10px;
-  text-align: center;
-  font-size: 14px;
-}
-
-.sales-table th, .cost-table th, .comparison-table th {
-  background: #f9f9f9;
-}
-
-/* Button Styles - Consistent across all stages */
-.choice-btn, .start-btn, .next-btn, .submit-btn, .badge-btn, .trade-btn, .block-btn, .qr-btn, .hint-btn {
-  background: linear-gradient(45deg, #FF6B6B, #4ECDC4);
-  color: white;
+.primary, .start-btn, .next-btn, .submit-btn, .trade-btn, .block-btn, .puzzle-btn {
+  background: linear-gradient(45deg, #ff7b54, #725ecf);
+  color: #fff;
   border: none;
-  padding: 12px 26px;
-  margin: 10px 5px;
-  border-radius: 25px;
+  padding: 10px 14px;
+  border-radius: 10px;
   cursor: pointer;
-  font-size: 16px;
-  font-weight: bold;
-  transition: transform 0.2s;
-  display: inline-block;
+  font-weight: 700;
+  margin: 6px;
+}
+.primary.disabled, .next-btn:disabled, .submit-btn:disabled { background: #cfcfcf; cursor: not-allowed; }
+
+.progress-bar { width: 100%; height: 12px; background: #f1f3f5; border-radius: 8px; margin-top: 8px; }
+.progress { height: 100%; background: linear-gradient(90deg, #00b894, #0984e3); border-radius: 8px; transition: width .3s; }
+
+.result { margin-top: 8px; font-weight: 700; color: #222; }
+
+/* Stage 1 Allocator */
+.plane-pool { display:flex; gap:8px; padding:8px; background:#fff; border-radius:6px; }
+.plane { padding:8px 10px; background:#f6f8fa; border-radius:8px; border:1px solid #e2e8f0; cursor:grab; }
+.regions { display:flex; gap:12px; margin-top:12px; }
+.region { flex:1; background:#fff; padding:10px; border-radius:8px; border:1px solid #eef2f7; }
+.dropzone { min-height:50px; border:2px dashed #e6eef8; border-radius:8px; padding:6px; text-align:center; }
+
+/* Stage 1 Decoder */
+.decoder .blurred {
+  background:#f7fafc; padding:12px; border-radius:6px; border:1px solid #e6eef8;
+  margin-bottom:8px; white-space:nowrap; overflow:hidden; text-overflow:ellipsis;
 }
 
-.choice-btn:hover, .start-btn:hover, .next-btn:hover, .submit-btn:hover, .badge-btn:hover, .trade-btn:hover, .block-btn:hover, .qr-btn:hover, .hint-btn:hover {
-  transform: translateY(-2px);
+/* Stage 2 Priority Board */
+.priority-board { display:flex; gap:12px; }
+.issues-pool { width:220px; padding:8px; background:#fff; border-radius:6px; }
+.issue { padding:8px; margin:6px 0; background:#fff; border-radius:6px; border:1px solid #e6eef8; cursor:grab; }
+.priority-slots { flex:1; display:grid; grid-template-columns:repeat(4,1fr); gap:8px; }
+.slot { background:#fff; padding:6px; border-radius:6px; border:1px solid #eef2f7; }
+.slotzone { min-height:48px; border:1px dashed #e6eef8; border-radius:6px; padding:6px; display:flex; align-items:center; justify-content:center; }
+
+/* Stage 2 Budget */
+.budget-grid input[type="range"] { width:100%; margin-top:4px; }
+
+/* Stage 3 Flow builder */
+.flow-builder { display:flex; gap:10px; align-items:flex-start; }
+.flow-diagram { display:flex; gap:10px; align-items:flex-start; flex:1; }
+.step { flex:1; background:#fff; padding:8px; border-radius:6px; border:1px solid #eef2f7; text-align:center; }
+.qa-pool { width:200px; padding:8px; background:#fff; border-radius:6px; }
+.qa { padding:8px; margin:6px 0; background:#fff; border-radius:6px; border:1px solid #e6eef8; cursor:grab; }
+
+/* Stage 3 Images */
+.images-row { display:flex; gap:12px; margin-top:8px; }
+.img-box { width:300px; height:180px; border-radius:8px; overflow:hidden; border:1px solid #eef2f7; display:flex; align-items:center; justify-content:center; cursor:pointer; }
+.img-box img { width:100%; height:100%; object-fit:cover; }
+.img-box.found { box-shadow:0 0 0 4px rgba(0,184,148,0.25); }
+
+/* Stage 4 Match */
+.match-area { display:flex; gap:12px; margin-top:8px; }
+.slogans, .countries { display:flex; gap:12px; }
+.slogan { padding:8px; background:#fff; border-radius:6px; border:1px solid #e6eef8; cursor:grab; }
+.country { flex:1; background:#fff; padding:8px; border-radius:6px; border:1px solid #eef2f7; }
+
+/* Inputs */
+input[type="text"], input[type="number"], textarea, #priceSlider {
+  width:100%; padding:8px 10px; margin-top:8px; border:1px solid #ccc; border-radius:6px; font-size:14px;
 }
 
-.choice-buttons {
-  display: flex;
-  justify-content: center;
-  flex-wrap: wrap;
-  gap: 15px;
-  margin: 20px 0;
+/* Sidebar */
+#leaderboardSidebar {
+  position: fixed; top: 0; right: 0; width: 180px; height: 100%;
+  background: #fff; border-left: 1px solid #e6e9ee; padding: 14px; overflow: auto;
+  box-shadow: -6px 0 30px rgba(2,6,23,0.06);
 }
+#leaderboardSidebar h3 { text-align:center; margin-bottom:12px; }
+#leaderboardList { padding-left:18px; }
 
-.badge-btn {
-  margin-top: 10px;
-}
-
-.badge-container {
-  display: flex;
-  flex-wrap: wrap;
-  gap: 10px;
-  margin-top: 10px;
-  justify-content: center;
-}
-
-.badge {
-  background: gold;
-  color: #333;
-  padding: 8px 18px;
-  border-radius: 20px;
-  font-size: 14px;
-  font-weight: bold;
-  box-shadow: 0 0 8px gold;
-}
-
-.video-container {
-  text-align: center;
-  margin-bottom: 20px;
-}
-
-/* Input Styles - Fixed padding and alignment */
-textarea, input[type="number"], input[type="text"] {
-  width: 100%;
-  padding: 10px 15px;
-  font-size: 16px;
-  margin: 10px 0;
-  border-radius: 8px;
-  border: 1px solid #ccc;
-  outline: none;
-  box-sizing: border-box;
-}
-
-textarea:focus, input[type="number"]:focus, input[type="text"]:focus {
-  border-color: #4ecdc4;
-  box-shadow: 0 0 5px #4ecdc4c9;
-}
-
-/* Form Labels - Better spacing and alignment */
-.reason-section label, .matching-section label, .competitor-edge label, .action-checkboxes label {
-  display: block;
-  margin: 8px 0;
-  cursor: pointer;
-  font-size: 15px;
-}
-
-.reason-section input[type="checkbox"], .matching-section input[type="checkbox"], .competitor-edge input[type="radio"], .action-checkboxes input[type="checkbox"] {
-  margin-right: 8px;
-  cursor: pointer;
-}
-
-/* Navigation Buttons - Consistent positioning */
-.next-btn, .submit-btn {
-  display: block;
-  width: 100%;
-  max-width: 320px;
-  margin: 30px auto;
-}
-
-/* Mobile Responsive - Fixed alignment issues */
-@media screen and (max-width: 600px) {
-  .choice-buttons {
-    flex-direction: column;
-    align-items: center;
-    gap: 10px;
-  }
-
-  .container {
-    margin: 10px;
-    padding: 15px;
-  }
-
-  table {
-    font-size: 13px;
-  }
-
-  textarea, input[type="number"], input[type="text"] {
-    font-size: 14px;
-  }
-}
-
-/* Alert Box - For crisis events */
-.alert-box {
-  background-color: #ffebee;
-  color: #b71c1c;
-  padding: 12px 15px;
-  border-radius: 8px;
-  font-weight: bold;
-  margin-top: 15px;
-}
-
-/* Trading Status - For Stage 4 */
-#tradeStatus div {
-  padding: 10px;
-  border-radius: 5px;
-  margin-top: 8px;
-}
-
-/* Special Submit Button - Different color */
-.submit-btn {
-  background: linear-gradient(45deg, #2196f3, #21cbf3);
-  margin-top: 15px;
-}
-
-/* Additional Stage-specific fixes */
-.calculation-box {
-  background: #f0f8ff;
-  padding: 15px;
-  border-radius: 10px;
-  margin: 15px 0;
-}
-
-.calc-inputs label {
-  display: block;
-  margin: 8px 0;
-  font-weight: bold;
-}
-
-.calc-inputs input {
-  margin-left: 10px;
-  width: 150px;
-  display: inline-block;
-}
-
-.hidden-clue {
-  background: #fff3cd;
-  border: 2px solid #ffc107;
-  padding: 15px;
-  border-radius: 10px;
-  margin: 15px 0;
-  text-align: center;
-}
-
-.unlocked-content {
-  background: #e8f5e8;
-  border: 2px solid #4CAF50;
-  padding: 15px;
-  border-radius: 10px;
-  margin: 15px 0;
-}
-
-.mini-case ul {
-  margin: 10px 0;
-  padding-left: 20px;
-}
-
-.mini-case li {
-  margin: 5px 0;
-}
-
-#calcResult {
-  margin-top: 15px;
-  font-weight: bold;
-  font-size: 16px;
-  color: #2a7a2a;
-}
-
-.word-count {
-  text-align: right;
-  font-size: 12px;
-  color: #666;
-  margin-top: 5px;
-}
-
-/* Insight Cards Grid - For Stage 4 */
-.insight-cards {
-  display: grid;
-  grid-template-columns: repeat(auto-fit, minmax(250px, 1fr));
-  gap: 15px;
-  margin: 20px 0;
-}
-
-/* Trading System Box - For Stage 4 */
-.trading-system {
-  background: #fff8e1;
-  padding: 20px;
-  border-radius: 10px;
-  margin: 20px 0;
-  text-align: center;
-}
-
-/* Leaderboard Styles - For Stage 5 */
-.leaderboardSection {
-  background: #f5f5f5;
-  padding: 20px;
-  border-radius: 10px;
-  margin-top: 20px;
-}
-
-.leaderboardList {
-  list-style-type: decimal;
-  padding-left: 20px;
-}
-
-.leaderboardList li {
-  margin: 8px 0;
-  font-weight: bold;
-}
-
-/* Disabled button state */
-button:disabled {
-  background: #cccccc !important;
-  cursor: not-allowed;
-  transform: none !important;
-}
-
-/* Success states */
-.success {
-  background: #4CAF50 !important;
-  color: white;
-}
-
-/* Status messages */
-#status-display p {
-  padding: 10px;
-  border-radius: 5px;
-  margin: 5px 0;
+/* Responsive */
+@media (max-width: 900px) {
+  .container { margin-right: 0; }
+  #leaderboardSidebar { position: static; width: 100%; height: auto; border-left: none; margin-top: 12px; box-shadow: none; }
+  .priority-slots { grid-template-columns: repeat(2,1fr); }
+  .flow-diagram { flex-direction: column; }
+  .images-row { flex-direction: column; }
 }
