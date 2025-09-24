@@ -1,202 +1,172 @@
 <!DOCTYPE html>
 <html lang="en">
 <head>
-    <meta charset="UTF-8" />
-    <meta name="viewport" content="width=device-width, initial-scale=1" />
-    <title>Stage 1 - The Incident</title>
-    <link rel="stylesheet" href="styles.css" />
+  <meta charset="utf-8" />
+  <meta name="viewport" content="width=device-width,initial-scale=1" />
+  <title>Stage 1 — The Incident</title>
+  <link rel="stylesheet" href="styles.css" />
 </head>
 <body>
-    <div class="container">
-        <header>
-            <h1>🕵️ Stage 1: The Incident</h1>
-            <div class="progress-bar">
-                <div class="progress" style="width: 20%"></div>
-            </div>
-        </header>
+  <div class="container">
+    <header>
+      <h1>🛑 Stage 1 — The Incident</h1>
+      <div class="progress-bar"><div class="progress" style="width:20%"></div></div>
+    </header>
 
-        <section class="evidence-section">
-            <h2>📊 Evidence Found</h2>
-            
-            <div class="evidence-card">
-                <h3>Sales Heatmap</h3>
-                <table class="sales-table">
-                    <thead><tr><th>Region</th><th>Expected</th><th>Actual</th><th>Gap</th></tr></thead>
-                    <tbody>
-                        <tr><td>North UP</td><td>25,000</td><td>2,000</td><td>-92%</td></tr>
-                        <tr><td>Maharashtra</td><td>30,000</td><td>3,000</td><td>-90%</td></tr>
-                        <tr><td>Bihar</td><td>20,000</td><td>2,500</td><td>-87.5%</td></tr>
-                        <tr><td>Others</td><td>25,000</td><td>2,500</td><td>-90%</td></tr>
-                    </tbody>
-                </table>
-            </div>
+    <section class="evidence-section">
+      <h2>Initial Evidence</h2>
 
-            <div class="evidence-card">
-                <h3>📧 CEO Email (Leaked)</h3>
-                <div class="email">
-                    <p><strong>From:</strong> CEO Brand X</p>
-                    <p><strong>Subject:</strong> URGENT - Rural Launch Crisis</p>
-                    <p><strong>Message:</strong> "Board meeting tomorrow. Need immediate answers. ₹10 Cr investment at risk. Sales team says distribution issues, marketing blames pricing. What's the real problem?"</p>
-                </div>
-            </div>
+      <div class="evidence-card">
+        <h3>Sales snapshot</h3>
+        <p>Targets vs actuals show major shortfall in EMEA, APAC and Country Y has the worst sentiment.</p>
+      </div>
 
-            <!-- HIDDEN CLUE - This will show when button is clicked -->
-            <div class="hidden-clue" id="repeat-clue" style="display:none;">
-                <h3>🔍 Sharp Eye Discovery!</h3>
-                <p><strong>Repeat Purchase Rate: Only 5%!</strong></p>
-                <button type="button" onclick="awardBadge('Sharp Eye')" class="badge-btn">🏅 Claim Badge</button>
-            </div>
+      <div class="evidence-card">
+        <h3>Leaked clip</h3>
+        <p>A social thread claims "Label says 'Made from local fruit' but bottles are from concentrate — misleading!"</p>
+      </div>
+    </section>
 
-            <!-- UNLOCKED CONTENT AREAS -->
-            <div class="unlocked-content" id="distribution-case" style="display:none;">
-                <h3>🔓 Warehouse Routes Mini-Case</h3>
-                <div class="mini-case">
-                    <p><strong>Investigation reveals:</strong></p>
-                    <ul>
-                        <li>Only 500 stores vs competitor's 2000 stores</li>
-                        <li>Rural areas have 75% fewer distribution points</li>
-                        <li>Transportation delays in 60% of deliveries</li>
-                        <li>No direct rural supply chain established</li>
-                    </ul>
-                </div>
-            </div>
+    <div class="task-card">
+      <h3>Interactive Puzzle A — Air Freight Allocation (Logistics Dilemma)</h3>
+      <p>You have <strong>2 emergency planes</strong>; each can cover one region quickly. Regions need urgent air shipments to avoid stockouts: EMEA 2 loads, APAC 2 loads, Country Y 1 load. Drag plane tokens to regions to minimise stockout risk. Each correct allocation gives points. Allocate both planes.</p>
 
-            <div class="unlocked-content" id="pricing-case" style="display:none;">
-                <h3>🔓 Supplier Negotiation Mini-Puzzle</h3>
-                <div class="mini-case">
-                    <p><strong>Pricing Analysis:</strong></p>
-                    <ul>
-                        <li>Brand X: ₹25 vs Competitor: ₹18 (39% premium)</li>
-                        <li>Rural income: ₹8,000/month average</li>
-                        <li>Health drinks = 2% of monthly budget</li>
-                        <li>Price sensitivity very high in rural markets</li>
-                    </ul>
-                </div>
-            </div>
-        </section>
+      <div class="allocator">
+        <div id="planePool" class="plane-pool">
+          <div draggable="true" class="plane" id="plane1">Plane 1</div>
+          <div draggable="true" class="plane" id="plane2">Plane 2</div>
+        </div>
 
-        <section class="decision-section">
-            <h2>🤔 What's the Main Problem?</h2>
-            <div class="choice-buttons">
-                <button type="button" onclick="chooseDistribution()" class="choice-btn">
-                    📦 Distribution Issues<br />
-                    <small>Poor rural reach & availability</small>
-                </button>
-                <button type="button" onclick="choosePricing()" class="choice-btn">
-                    💰 Pricing Problems<br />
-                    <small>Too expensive for rural market</small>
-                </button>
-            </div>
-            
-            <button type="button" onclick="findHiddenClue()" class="hint-btn">🔍 Look for Hidden Clues</button>
-            
-            <!-- STATUS DISPLAY -->
-            <div id="status-display" style="margin-top: 20px;">
-                <p id="path-selected" style="display:none; font-weight: bold; color: green;"></p>
-                <p id="clue-found" style="display:none; font-weight: bold; color: blue;"></p>
-            </div>
-        </section>
-        
-        <button type="button" onclick="nextStage()" class="next-btn" id="next-btn" disabled>
-            ➡️ Proceed to Market Analysis
-        </button>
+        <div class="regions">
+          <div class="region" id="EMEA" data-need="2">
+            <h4>EMEA needs 2</h4>
+            <div class="dropzone" data-region="EMEA"></div>
+          </div>
+          <div class="region" id="APAC" data-need="2">
+            <h4>APAC needs 2</h4>
+            <div class="dropzone" data-region="APAC"></div>
+          </div>
+          <div class="region" id="CountryY" data-need="1">
+            <h4>Country Y needs 1</h4>
+            <div class="dropzone" data-region="CountryY"></div>
+          </div>
+        </div>
+      </div>
+
+      <div style="margin-top:10px">
+        <button class="submit-btn" id="allocSubmit">Submit Allocation</button>
+      </div>
+      <div id="allocResult" class="result"></div>
     </div>
 
-    <script>
-        // Global game state
-        let gameState = {
-            badges: [],
-            score: 0,
-            selectedPath: null,
-            clueFound: false
-        };
+    <div class="task-card">
+      <h3>Interactive Puzzle B — Label Thread Decode (Speed)</h3>
+      <p>A blurred screenshot of social replies is shown. Slide the decoder to reveal text gradually. Spot the misleading phrase and type it exactly. Faster reveals yield more points.</p>
 
-        function awardBadge(badgeName) {
-            if (!gameState.badges.includes(badgeName)) {
-                gameState.badges.push(badgeName);
-                gameState.score += 25;
-                alert('🏅 Badge Earned: ' + badgeName + ' (+25 points)');
-                
-                // Visual feedback
-                const button = event.target;
-                button.style.background = 'gold';
-                button.textContent = '✅ Badge Claimed!';
-                button.disabled = true;
-            }
-        }
+      <div class="decoder">
+        <div class="blurred" id="blurredText">Made from local fruit</div>
+        <input type="range" id="decoderRange" min="0" max="100" value="0" />
+        <input type="text" id="decodedInput" placeholder="Type the misleading phrase you found" />
+        <button class="submit-btn" id="decodeSubmit">Submit Phrase</button>
+      </div>
+      <div id="decodeResult" class="result"></div>
+    </div>
 
-        function chooseDistribution() {
-            gameState.selectedPath = 'distribution';
-            
-            // Show unlocked content
-            document.getElementById('distribution-case').style.display = 'block';
-            document.getElementById('path-selected').textContent = '✅ Distribution path selected - Mini-case unlocked!';
-            document.getElementById('path-selected').style.display = 'block';
-            
-            // Enable next button
-            document.getElementById('next-btn').disabled = false;
-            
-            // Visual feedback
-            const button = event.target;
-            button.style.background = 'linear-gradient(45deg, #4CAF50, #45a049)';
-            button.style.transform = 'scale(1.05)';
-        }
+    <div style="margin-top:14px">
+      <button id="toStage2Btn" class="next-btn" disabled onclick="goToStage('stage2.html')">Proceed to Stage 2</button>
+    </div>
+  </div>
 
-        function choosePricing() {
-            gameState.selectedPath = 'pricing';
-            
-            // Show unlocked content
-            document.getElementById('pricing-case').style.display = 'block';
-            document.getElementById('path-selected').textContent = '✅ Pricing path selected - Mini-puzzle unlocked!';
-            document.getElementById('path-selected').style.display = 'block';
-            
-            // Enable next button
-            document.getElementById('next-btn').disabled = false;
-            
-            // Visual feedback
-            const button = event.target;
-            button.style.background = 'linear-gradient(45deg, #4CAF50, #45a049)';
-            button.style.transform = 'scale(1.05)';
-        }
+  <aside id="leaderboardSidebar">
+    <h3>Leaderboard</h3>
+    <ol id="leaderboardList"></ol>
+    <div id="yourSession" style="margin-top:12px;font-size:14px"></div>
+  </aside>
 
-        function findHiddenClue() {
-            // Show hidden clue
-            document.getElementById('repeat-clue').style.display = 'block';
-            document.getElementById('clue-found').textContent = '🔍 Hidden clue discovered!';
-            document.getElementById('clue-found').style.display = 'block';
-            
-            gameState.clueFound = true;
-            
-            // Visual feedback
-            const button = event.target;
-            button.textContent = '✅ Clue Found!';
-            button.disabled = true;
-            button.style.background = '#8a2be2';
-        }
-
-        function nextStage() {
-            if (!gameState.selectedPath) {
-                alert('⚠️ Please select the main problem first!');
-                return;
-            }
-            
-            // Save state to localStorage
-            localStorage.setItem('gameState', JSON.stringify(gameState));
-            
-            // Show progress
-            alert(`🎯 Analysis complete! Path: ${gameState.selectedPath.toUpperCase()}\nScore: ${gameState.score} points\nProceeding to Market Analysis...`);
-            
-            // Redirect to stage 2
-            window.location.href = 'stage2.html';
-        }
-
-        // Load any saved state
-        window.addEventListener('load', function() {
-            const saved = localStorage.getItem('gameState');
-            if (saved) {
-                gameState = JSON.parse(saved);
-            }
+  <script src="game.js"></script>
+  <script>
+    // Drag & drop for planes
+    document.addEventListener('DOMContentLoaded', () => {
+      const planes = document.querySelectorAll('.plane');
+      planes.forEach(p => {
+        p.addEventListener('dragstart', ev => {
+          ev.dataTransfer.setData('text/plain', ev.target.id);
         });
-    </script>
+      });
+
+      const zones = document.querySelectorAll('.dropzone');
+      zones.forEach(z => {
+        z.addEventListener('dragover', ev => ev.preventDefault());
+        z.addEventListener('drop', ev => {
+          ev.preventDefault();
+          const id = ev.dataTransfer.getData('text/plain');
+          const node = document.getElementById(id);
+          if (!node) return;
+          ev.target.innerHTML = '';
+          ev.target.appendChild(node);
+        });
+      });
+
+      document.getElementById('allocSubmit').addEventListener('click', () => {
+        const session = loadSession();
+        if (!session) return alert('Start the game (index) first.');
+
+        const zoneEMEA = document.querySelector('.dropzone[data-region="EMEA"] .plane') ? 1 : 0;
+        const zoneAPAC = document.querySelector('.dropzone[data-region="APAC"] .plane') ? 1 : 0;
+        const zoneY    = document.querySelector('.dropzone[data-region="CountryY"] .plane') ? 1 : 0;
+
+        let points = 0;
+        if (zoneY === 1) points += 50;      // PR hotspot
+        if (zoneEMEA === 1) points += 25;
+        if (zoneAPAC === 1) points += 25;
+        points = Math.min(100, points);
+
+        awardStageTaskPoints('st1alloc', points);
+        document.getElementById('allocResult').innerHTML = `Allocation scored ${points} pts.`;
+
+        document.getElementById('allocSubmit').disabled = true;
+        if (getStageTaskDone('st1alloc') && getStageTaskDone('st1decode')) {
+          document.getElementById('toStage2Btn').disabled = false;
+        }
+      });
+
+      const decoder = document.getElementById('decoderRange');
+      const blurred = document.getElementById('blurredText');
+      decoder.addEventListener('input', (ev) => {
+        const v = Number(ev.target.value);
+        blurred.style.opacity = String(Math.max(0.3, 1 - v/120));
+      });
+
+      document.getElementById('decodeSubmit').addEventListener('click', () => {
+        const session = loadSession();
+        if (!session) return alert('Start the game first.');
+        const answer = document.getElementById('decodedInput').value.trim();
+        if (!answer) return alert('Type the phrase you spotted.');
+        const expected = 'Made from local fruit';
+        const sim = textSimilarity(answer, expected);
+
+        const sliderVal = Number(decoder.value);
+        const speedBonus = Math.max(0, 40 - sliderVal);
+        const base = Math.round(sim * 60);
+        const points = Math.min(100, base + Math.round(speedBonus * 0.8));
+
+        awardStageTaskPoints('st1decode', points);
+        document.getElementById('decodeResult').innerHTML =
+          `Decoded similarity ${Math.round(sim*100)}%. ${points} pts.`;
+        document.getElementById('decodeSubmit').disabled = true;
+
+        if (getStageTaskDone('st1alloc') && getStageTaskDone('st1decode')) {
+          document.getElementById('toStage2Btn').disabled = false;
+        }
+      });
+
+      // Restore disabled state on reload
+      const session = loadSession();
+      if (session) {
+        if (getStageTaskDone('st1alloc')) document.getElementById('allocSubmit').disabled = true;
+        if (getStageTaskDone('st1decode')) document.getElementById('decodeSubmit').disabled = true;
+      }
+    });
+  </script>
 </body>
 </html>
